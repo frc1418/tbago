@@ -1,5 +1,6 @@
 package tba
 
+// Team represents the team model.
 type Team struct {
 	Website     string `json:"website"`      // Official website associated with the team
 	Name        string `json:"name"`         // Official long form name registered with FIRST
@@ -14,6 +15,7 @@ type Team struct {
 	Nickname    string `json:"nickname"`     // Team nickname provided by FIRST
 }
 
+// Event represents the event model.
 type Event struct {
 	Key                 string        `json:"key"`
 	Website             string        `json:"website"`
@@ -39,6 +41,7 @@ type Event struct {
 	EventType       int    `json:"event_type"`
 }
 
+// Match represents the match model.
 type Match struct {
 	CompLevel   string `json:"comp_level"`
 	MatchNumber int    `json:"match_number"`
@@ -64,6 +67,7 @@ type Match struct {
 	EventKey string `json:"event_key"`
 }
 
+// Award represents the award model.
 type Award struct {
 	EventKey      string `json:"event_key"`
 	AwardType     int    `json:"award_type"`
@@ -75,10 +79,19 @@ type Award struct {
 	Year int `json:"year"`
 }
 
+// Media represents the media model.
 type Media []struct {
 	Type    string `json:"type"`
 	Details struct {
 		ImagePartial string `json:"image_partial"`
 	} `json:"details"`
 	ForeignKey string `json:"foreign_key"`
+}
+
+// Robot represents the robot model.
+type Robot struct {
+	TeamKey string `json:"team_key"`
+	Name    string `json:"name"`
+	Key     string `json:"key"`
+	Year    int    `json:"year"`
 }
