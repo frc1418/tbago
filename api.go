@@ -45,5 +45,4 @@ func (tba Client) jsonToStruct(url string, v interface{}) error {
 	}
 	err = json.Unmarshal(resp, v)
 	return err
-
 }
