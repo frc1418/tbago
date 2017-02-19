@@ -95,3 +95,26 @@ type Robot struct {
 	Key     string `json:"key"`
 	Year    int    `json:"year"`
 }
+
+// Stat represents the stat model.
+type Stats struct {
+	OPRs	interface{} `json:"oprs"`
+	YearSpecific struct {
+		Qual	interface{}
+		Playoff interface{}
+	}
+	CCWMs	map[string]float64 `json:"ccwms"`
+}
+
+type Ranking struct {
+	PointTotal	int `json:"point_total"`
+	TeamKey		string `json:"team_key"`
+	eventPoints interface{} `json:"event_points"`
+	Rank		int `json:"rank"`
+	RookieBonus int `json:"rookie_bonus"`
+}
+
+type DistrictPoints struct {
+	Points 		interface{}
+	Tiebreakers interface{}
+}
