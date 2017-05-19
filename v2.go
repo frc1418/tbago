@@ -33,20 +33,32 @@ func (tba Client) appID() string {
 	return tba.key
 }
 
-// Deprecated: APIv2 is deprecated
-// Team represents the team model.
 type Team struct {
-	Website     string `json:"website"`      // Official website associated with the team
-	Name        string `json:"name"`         // Official long form name registered with FIRST
-	Locality    string `json:"locality"`     // City of team derived from parsing the address registered with FIRST
-	RookieYear  int    `json:"rookie_year"`  // Team's rookie year
-	Region      string `json:"region"`       // State of team derived from parsing the address registered with FIRST
-	TeamNumber  int    `json:"team_number"`  // Official team number issued by FIRST
-	Location    string `json:"location"`     // Long form address that includes city, state, and country provided by FIRST
-	Key         string `json:"key"`          // TBA team key with the format frcyyyy
-	CountryName string `json:"country_name"` // Country of team derived from parsing the address registered with FIRST
-	Motto       string `json:"motto"`        // Team's Motto
-	Nickname    string `json:"nickname"`     // Team nickname provided by FIRST
+	Address          string `json:"address"`
+	City             string `json:"city"`
+	Country          string `json:"country"`
+	GmapsPlaceID     string `json:"gmaps_place_id"`
+	GmapsURL         string `json:"gmaps_url"`
+	HomeChampionship struct {
+		Num2017 string `json:"2017"`
+		Num2018 string `json:"2018"`
+	} `json:"home_championship"`
+	Key          string  `json:"key"`
+	Lat          float64 `json:"lat"`
+	Lng          float64 `json:"lng"`
+	LocationName string  `json:"location_name"`
+	Motto        string  `json:"motto"`
+	Name         string  `json:"name"`
+	Nickname     string  `json:"nickname"`
+	PostalCode   string  `json:"postal_code"`
+	RookieYear   int     `json:"rookie_year"`
+	StateProv    string  `json:"state_prov"`
+	TeamNumber   int     `json:"team_number"`
+	Website      string  `json:"website"`
+	Location     string  // Deprecated
+	Locality     string  // Deprecated
+	Region       string  // Deprecated
+	CountryName  string  // Deprecated
 }
 
 // Deprecated: APIv2 is deprecated
