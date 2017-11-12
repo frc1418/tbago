@@ -1,5 +1,5 @@
 # tba for Go
-A Go library for interfacing with The Blue Alliance's APIv2.
+A Go library for interfacing with The Blue Alliance's API. (Supports APIv3.)
 
 To install `tba`:
 
