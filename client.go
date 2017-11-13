@@ -6,7 +6,7 @@ type Client struct {
     key string
 }
 
-func TBA(key string) (client Client, err error) {
+func New(key string) (client Client, err error) {
     if key == "" {
         err := errors.New("Invalid arguments.")
         return client, err
