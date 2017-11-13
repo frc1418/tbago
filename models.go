@@ -2,7 +2,7 @@ package tba
 
 
 type statusBuilder struct {
-    client  Client
+    client *Client
 }
 type Status struct {
     Android             struct {
@@ -27,13 +27,13 @@ type teamsBuilder struct {
     event   string
     district    string
     year    int
-    client  Client
+    client *Client
 }
 
 type teamBuilder struct {
     number  int
     simple  bool
-    client  Client
+    client *Client
 }
 type Team struct {
     Address                 string `json:"address"`
@@ -62,13 +62,13 @@ type eventsBuilder struct {
     team    int
     district    string
     simple  bool
-    client  Client
+    client *Client
 }
 
 type eventBuilder struct {
     id      string
     simple  bool
-    client  Client
+    client *Client
 }
 
 type Event struct {
@@ -114,7 +114,7 @@ type awardsBuilder struct {
     year    int
     team    int
     event   string
-    client  Client
+    client *Client
 }
 type Award struct {
     AwardType      int     `json:"award_type"`
@@ -131,12 +131,12 @@ type matchesBuilder struct {
     team    int
     event   string
     year    int
-    client  Client
+    client *Client
 }
 type matchBuilder struct {
     key     string
     simple  bool
-    client  Client
+    client *Client
 }
 type Match struct {
     ActualTime              int     `json:"actual_time"`
@@ -175,7 +175,7 @@ type Match struct {
 
 type yearsBuilder struct {
     team    int
-    client  Client
+    client *Client
 }
 type Year int
 
@@ -183,7 +183,7 @@ type Year int
 type mediaBuilder struct {
     team    int
     year    int
-    client  Client
+    client *Client
 }
 type Media struct {
 	Type                    string `json:"type"`
@@ -211,7 +211,7 @@ type Media struct {
 
 type robotsBuilder struct {
     team    int
-    client  Client
+    client *Client
 }
 type Robot struct {
     Key     string `json:"key"`
@@ -224,12 +224,12 @@ type districtsBuilder struct {
     team    int
     abbreviation    string
     year    int
-    client  Client
+    client *Client
 }
 type districtBuilder struct {
     abbreviation    string
     year    int
-    client  Client
+    client *Client
 }
 type District struct {
     Abbreviation    string  `json:"abbreviation"`
@@ -241,7 +241,7 @@ type District struct {
 
 type profilesBuilder struct {
     team    int
-    client  Client
+    client *Client
 }
 type Profile struct {
     //Details     interface{}   `json:"details"`
@@ -253,7 +253,7 @@ type Profile struct {
 
 type alliancesBuilder struct {
     event   string
-    client  Client
+    client *Client
 }
 type Alliance struct {
     Backup                  interface{} `json:"backup"`
@@ -279,7 +279,7 @@ type Alliance struct {
 
 type districtPointsBuilder struct {
     event   string
-    client  Client
+    client *Client
 }
 type DistrictPoints struct {
 	Points                  map[string]struct {
@@ -297,7 +297,7 @@ type DistrictPoints struct {
 
 type insightsBuilder struct {
     event   string
-    client  Client
+    client *Client
 }
 type Insights struct {
     // TODO
@@ -305,7 +305,7 @@ type Insights struct {
 
 type oprsBuilder struct {
     event   string
-    client  Client
+    client *Client
 }
 type OPRs struct {
     CCWMs   map[string]float64  `json:"ccwms"`
@@ -315,7 +315,7 @@ type OPRs struct {
 
 type predictionsBuilder struct {
     event   string
-    client Client
+    client *Client
 }
 type Predictions struct {
     MatchPredictionStats    struct {
@@ -368,7 +368,7 @@ type Predictions struct {
 
 type rankingsBuilder struct {
     event   string
-    client  Client
+    client *Client
 }
 type Rankings struct {
     ExtraStatsInfo          []struct {
@@ -398,7 +398,7 @@ type Rankings struct {
 type districtRankingsBuilder struct {
     abbreviation    string
     year   int
-    client Client
+    client *Client
 }
 type DistrictRankings struct {
     EventPoints             []struct {

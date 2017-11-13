@@ -3,7 +3,7 @@ package tba
 // API Status
 func (tba Client) Status() *statusBuilder {
     return &statusBuilder{
-        client: tba,
+        client: &tba,
     }
 }
 
@@ -11,13 +11,13 @@ func (tba Client) Status() *statusBuilder {
 func (tba Client) Teams(page int) *teamsBuilder {
     return &teamsBuilder{
         page: page,
-        client: tba,
+        client: &tba,
     }
 }
 func (tba Client) Team(number int) *teamBuilder {
     return &teamBuilder{
         number: number,
-        client: tba,
+        client: &tba,
     }
 }
 func (b *teamBuilder) Simple() *teamBuilder {
@@ -77,13 +77,13 @@ func (b *teamBuilder) Profiles() *profilesBuilder {
 func (tba Client) Events(year int) *eventsBuilder {
     return &eventsBuilder{
         year: year,
-        client: tba,
+        client: &tba,
     }
 }
 func (tba Client) Event(id string) *eventBuilder {
     return &eventBuilder{
         id: id,
-        client: tba,
+        client: &tba,
     }
 }
 func (b *eventBuilder) Simple() *eventBuilder {
@@ -141,7 +141,7 @@ func (b *matchesBuilder) Year(year int) *matchesBuilder {
 func (tba Client) Match(key string) *matchBuilder {
     return &matchBuilder{
         key: key,
-        client: tba,
+        client: &tba,
     }
 }
 func (b *matchBuilder) Simple() *matchBuilder {
@@ -159,14 +159,14 @@ func (b *mediaBuilder) Year(year int) *mediaBuilder {
 func (tba Client) Districts(year int) *districtsBuilder {
     return &districtsBuilder{
         year: year,
-        client: tba,
+        client: &tba,
     }
 }
 func (tba Client) District(abbreviation string, year int) *districtBuilder {
     return &districtBuilder{
         abbreviation: abbreviation,
         year: year,
-        client: tba,
+        client: &tba,
     }
 }
 func (b *districtBuilder) Rankings() *districtRankingsBuilder {
