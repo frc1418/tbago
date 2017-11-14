@@ -8,7 +8,7 @@ type Status struct {
 		LatestAppVersion int `json:"latest_app_version"`
 		MinAppVersion    int `json:"min_app_version"`
 	} `json:"android"`
-	iOS struct {
+	IOS struct {
 		LatestAppVersion int `json:"latest_app_version"`
 		MinAppVersion    int `json:"min_app_version"`
 	} `json:"ios"`
@@ -38,7 +38,7 @@ type Team struct {
 	City             string         `json:"city"`
 	StateProv        string         `json:"state_prov"`
 	Country          string         `json:"country"`
-	PostalCode       string         `json:"rookie_year"`
+	PostalCode       string         `json:"postal_code"`
 	GMapsPlaceID     string         `json:"gmaps_place_id"`
 	GMapsURL         string         `json:"gmaps_url"`
 	HomeChampionship map[int]string `json:"home_championship"`
@@ -339,8 +339,8 @@ type Predictions struct {
 			Red             map[string]float64 `json:"red"`
 			Prob            float64            `json:"prob"`
 			WinningAlliance string             `json:"winning_alliance"`
-		} `json:"playoff"`
-	} `json:"match_prediction_stats"`
+		} `json:"qual"`
+	} `json:"match_predictions"`
 	RankingPredictionStats struct {
 		// TODO: There are probably other fields here.
 		LastPlayedMatch string `json:"last_played_match"`
@@ -355,7 +355,7 @@ type Predictions struct {
 		Qual map[string]struct {
 			Mean map[string]float64 `json:"mean"`
 			Var  map[string]float64 `json:"var"`
-		} `json:"playoff"`
+		} `json:"qual"`
 	} `json:"stat_mean_vars"`
 }
 
