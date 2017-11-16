@@ -136,7 +136,7 @@ type matchBuilder struct {
 	client *Client
 }
 type Match struct {
-	ActualTime int `json:"actual_time"`
+	ActualTime int64 `json:"actual_time"`
 	Alliances  struct {
 		Blue struct {
 			DQTeams        []string `json:"dq_team_keys"`
@@ -155,14 +155,14 @@ type Match struct {
 	EventKey       string `json:"event_key"`
 	Key            string `json:"key"`
 	MatchNumber    int    `json:"match_number"`
-	PostResultTime int    `json:"post_result_time"`
-	PredictedTime  int    `json:"predicted_time"`
+	PostResultTime int64  `json:"post_result_time"`
+	PredictedTime  int64  `json:"predicted_time"`
 	ScoreBreakdown struct {
 		Red  interface{} `json:"red"`
 		Blue interface{} `json:"blue"`
 	} `json:"score_breakdown"`
-	SetNumber int `json:"set_number"`
-	Time      int `json:"time"`
+	SetNumber int   `json:"set_number"`
+	Time      int64 `json:"time"`
 	Videos    []struct {
 		Type string `json:"type"`
 		Key  string `json:"key"`
