@@ -1,195 +1,190 @@
 package tba
 
-import (
-	"fmt"
-)
+import "fmt"
 
-// Team list request
-func (tba Client) GetTeams(pageNum int) ([]Team, error) {
-	url := fmt.Sprintf("teams/%d", pageNum)
-	var t []Team
-	err := tba.jsonToStruct(url, &t)
-	return t, err
-}
-
-// Team request
-func (tba Client) GetTeam(team int) (Team, error) {
-	url := fmt.Sprintf("team/frc%d", team)
-	var t Team
-	err := tba.jsonToStruct(url, &t)
-	return t, err
-}
-
-// Event request
-func (tba Client) GetEvent(key string) (Event, error) {
-	url := fmt.Sprintf("event/%s", key)
-	var e Event
-	err := tba.jsonToStruct(url, &e)
-	return e, err
-}
-
-// Team events request
-func (tba Client) GetTeamEvents(team int, year int) ([]Event, error) {
-	url := fmt.Sprintf("team/frc%d/%d/events", team, year)
-	var e []Event
-	err := tba.jsonToStruct(url, &e)
-	return e, err
-}
-
-// Team awards request
-func (tba Client) GetTeamAwards(team int) ([]Award, error) {
-	url := fmt.Sprintf("team/frc%d/awards", team)
-	var a []Award
-	err := tba.jsonToStruct(url, &a)
-	return a, err
-}
-
-// Team event awards request
-func (tba Client) GetTeamEventAwards(team int, event string) ([]Award, error) {
-	url := fmt.Sprintf("team/frc%d/event/%s/awards", team, event)
-	var a []Award
-	err := tba.jsonToStruct(url, &a)
-	return a, err
-}
-
-
-// Team years active request
-func (tba Client) GetTeamYears(team int) ([]int, error) {
-	url := fmt.Sprintf("team/frc%d/years_participated", team)
-	var y []int
-	err := tba.jsonToStruct(url, &y)
-	return y, err
-}
-
-func (tba Client) GetMatch(match string) (Match, error) {
-	url := fmt.Sprintf("match/%s", match)
-	var m Match
-	err := tba.jsonToStruct(url, &m)
-	return m, err
-}
-
-func (tba Client) GetEventMatches(event string) ([]Match, error) {
-	url := fmt.Sprintf("event/%s/matches", event)
-	var m []Match
-	err := tba.jsonToStruct(url, &m)
-	return m, err
-}
-
-func (tba Client) GetTeamEventMatches(team int, event string) ([]Match, error) {
-	url := fmt.Sprintf("team/frc%d/event/%s/matches", team, event)
-	var m []Match
-	err := tba.jsonToStruct(url, &m)
-	return m, err
-}
-
-func (tba Client) GetEventTeams(event string) ([]Team, error) {
-	url := fmt.Sprintf("event/%s/teams", event)
-	var t []Team
-	err := tba.jsonToStruct(url, &t)
-	return t, err
-}
-
-func (tba Client) GetEventStats(event string) ([]Stats, error) {
-	url := fmt.Sprintf("event/%s/stats", event)
-	var s []Stats
-	err := tba.jsonToStruct(url, &s)
-	return s, err
-}
-
-func (tba Client) GetEventAwards(event string) ([]Award, error) {
-	url := fmt.Sprintf("event/%s/awards", event)
-	var a []Award
-	err := tba.jsonToStruct(url, &a)
-	return a, err
-}
-
-func (tba Client) GetEventRankings(event string) ([][]string, error) {
-	url := fmt.Sprintf("event/%s/rankings", event)
-	var r [][]string
-	err := tba.jsonToStruct(url, &r)
-	return r, err
-}
-
-func (tba Client) GetEvents(year int) ([]Event, error) {
-	url := fmt.Sprintf("events/%d", year)
-	var m []Event
-	err := tba.jsonToStruct(url, &m)
-	return m, err
-}
-
-func (tba Client) GetTeamMedia(team int) ([]Media, error) {
-	url := fmt.Sprintf("team/frc%d/media", team)
-	var m []Media
-	err := tba.jsonToStruct(url, &m)
-	return m, err
-}
-
-func (tba Client) GetTeamYearMedia(team int, year int) ([]Media, error) {
-	url := fmt.Sprintf("team/frc%d/%d/media", team, year)
-	var m []Media
-	err := tba.jsonToStruct(url, &m)
-	return m, err
-}
-
-func (tba Client) GetTeamHistoryEvents(team int) ([]Event, error) {
-	url := fmt.Sprintf("team/frc%d/history/events", team)
-	var e []Event
-	err := tba.jsonToStruct(url, &e)
-	return e, err
-}
-
-func (tba Client) GetTeamHistoryAwards(team int) ([]Award, error) {
-	url := fmt.Sprintf("team/frc%d/history/awards", team)
-	var a []Award
-	err := tba.jsonToStruct(url, &a)
-	return a, err
-}
-
-func (tba Client) GetTeamHistoryRobots(team int) ([]Robot, error) {
-	url := fmt.Sprintf("team/frc%d/history/robots", team)
-	var r []Robot
-	err := tba.jsonToStruct(url, &r)
-	return r, err
-}
-
-func (tba Client) GetTeamHistoryDistricts(team int) (map[string]string, error) {
-	url := fmt.Sprintf("team/frc%d/history/awards", team)
-	var d map[string]string
-	err := tba.jsonToStruct(url, &d)
+func (b statusBuilder) Get() (Status, error) {
+	url := "status"
+	var d Status
+	err := b.client.URLStruct(url, &d)
 	return d, err
 }
 
-func (tba Client) GetDistricts(year int) ([]map[string]string, error) {
-	url := fmt.Sprintf("districts/%d", year)
-	var d []map[string]string
-	err := tba.jsonToStruct(url, &d)
+func (b teamsBuilder) Get() ([]Team, error) {
+	var url string
+	if b.event != "" {
+		url = fmt.Sprintf("event/%s/teams", b.event)
+	} else if b.district != "" {
+		url = fmt.Sprintf("district/%d%s/teams", b.year, b.district)
+	} else {
+		url = fmt.Sprintf("teams/%d", b.page)
+	}
+	var d []Team
+	err := b.client.URLStruct(url, &d)
 	return d, err
 }
 
-func (tba Client) GetDistrictEvents(district string, year int) ([]Event, error) {
-	url := fmt.Sprintf("district/%s/%d/events", district, year)
-	var e []Event
-	err := tba.jsonToStruct(url, &e)
-	return e, err
+func (b teamBuilder) Get() (Team, error) {
+	var url string
+	if b.simple {
+		url = fmt.Sprintf("team/frc%d/simple", b.number)
+	} else {
+		url = fmt.Sprintf("team/frc%d", b.number)
+	}
+	var d Team
+	err := b.client.URLStruct(url, &d)
+	return d, err
 }
 
-func (tba Client) GetDistrictRankings(district string, year int) ([]Ranking, error) {
-	url := fmt.Sprintf("district/%s/%d/rankings", district, year)
-	var r []Ranking
-	err := tba.jsonToStruct(url, &r)
-	return r, err
+func (b eventsBuilder) Get() ([]Event, error) {
+	var url string
+	fmt.Println(b.team)
+	if b.team != 0 {
+		url = fmt.Sprintf("team/frc%d/events", b.team)
+	} else if b.district != "" {
+		url = fmt.Sprintf("district/%d%s/events", b.year, b.district)
+	} else {
+		url = fmt.Sprintf("events/%d", b.year)
+	}
+	var d []Event
+	err := b.client.URLStruct(url, &d)
+	return d, err
 }
 
-func (tba Client) GetDistrictTeams(district string, year int) ([]Team, error) {
-	url := fmt.Sprintf("district/%s/%d/teams", district, year)
-	var t []Team
-	err := tba.jsonToStruct(url, &t)
-	return t, err
+func (b eventBuilder) Get() (Event, error) {
+	url := fmt.Sprintf("event/%s", b.id)
+	var d Event
+	err := b.client.URLStruct(url, &d)
+	return d, err
 }
 
-func (tba Client) GetDistrictPoints(event string) (DistrictPoints, error) {
-	url := fmt.Sprintf("event/%s/district_points", event)
-	var p DistrictPoints
-	err := tba.jsonToStruct(url, &p)
-	return p, err
+func (b awardsBuilder) Get() ([]Award, error) {
+	var url string
+	if b.team != 0 {
+		url = fmt.Sprintf("team/frc%d/awards", b.team)
+	} else if b.event != "" {
+		url = fmt.Sprintf("event/%s/awards", b.event)
+	}
+	if b.year != 0 {
+		url = fmt.Sprintf("awards/%d", b.year)
+	}
+	var d []Award
+	err := b.client.URLStruct(url, &d)
+	return d, err
+}
+
+func (b matchesBuilder) Get() ([]Match, error) {
+	var url string
+	if b.team != 0 {
+		url = fmt.Sprintf("team/frc%d/matches", b.team)
+		if b.year != 0 {
+			url = fmt.Sprintf("%s/%d", url, b.year)
+		}
+	} else if b.event != "" {
+		url = fmt.Sprintf("event/%s/matches", b.event)
+	}
+	var d []Match
+	err := b.client.URLStruct(url, &d)
+	return d, err
+}
+
+func (b matchBuilder) Get() (Match, error) {
+	url := fmt.Sprintf("match/%s", b.key)
+	if b.simple {
+		url += "/simple"
+	}
+	var d Match
+	err := b.client.URLStruct(url, &d)
+	return d, err
+}
+
+func (b yearsBuilder) Get() ([]Year, error) {
+	url := fmt.Sprintf("team/frc%d/years_participated", b.team)
+	var d []Year
+	err := b.client.URLStruct(url, &d)
+	return d, err
+}
+
+func (b mediaBuilder) Get() ([]Media, error) {
+	url := fmt.Sprintf("team/frc%d/media", b.team)
+	if b.year != 0 {
+		url = fmt.Sprintf("%s/%d", url, b.year)
+	}
+	var d []Media
+	err := b.client.URLStruct(url, &d)
+	return d, err
+}
+
+func (b robotsBuilder) Get() ([]Robot, error) {
+	url := fmt.Sprintf("team/frc%d/robots", b.team)
+	var d []Robot
+	err := b.client.URLStruct(url, &d)
+	return d, err
+}
+
+func (b districtsBuilder) Get() ([]District, error) {
+	var url string
+	if b.team != 0 {
+		url = fmt.Sprintf("team/frc%d/districts", b.team)
+	} else {
+		url = fmt.Sprintf("districts/%d", b.year)
+	}
+	var d []District
+	err := b.client.URLStruct(url, &d)
+	return d, err
+}
+
+func (b profilesBuilder) Get() ([]Profile, error) {
+	url := fmt.Sprintf("team/frc%d/social_media", b.team)
+	var d []Profile
+	err := b.client.URLStruct(url, &d)
+	return d, err
+}
+
+func (b alliancesBuilder) Get() ([]Alliance, error) {
+	url := fmt.Sprintf("event/%s/alliances", b.event)
+	var d []Alliance
+	err := b.client.URLStruct(url, &d)
+	return d, err
+}
+
+func (b districtPointsBuilder) Get() (DistrictPoints, error) {
+	url := fmt.Sprintf("event/%s/district_points", b.event)
+	var d DistrictPoints
+	err := b.client.URLStruct(url, &d)
+	return d, err
+}
+
+func (b insightsBuilder) Get() (Insights, error) {
+	url := fmt.Sprintf("event/%s/insights", b.event)
+	var d Insights
+	err := b.client.URLStruct(url, &d)
+	return d, err
+}
+
+func (b oprsBuilder) Get() (OPRs, error) {
+	url := fmt.Sprintf("event/%s/oprs", b.event)
+	var d OPRs
+	err := b.client.URLStruct(url, &d)
+	return d, err
+}
+
+func (b predictionsBuilder) Get() (Predictions, error) {
+	url := fmt.Sprintf("event/%s/predictions", b.event)
+	var d Predictions
+	err := b.client.URLStruct(url, &d)
+	return d, err
+}
+
+func (b rankingsBuilder) Get() (Rankings, error) {
+	url := fmt.Sprintf("event/%s/rankings", b.event)
+	var d Rankings
+	err := b.client.URLStruct(url, &d)
+	return d, err
+}
+
+func (b districtRankingsBuilder) Get() ([]DistrictRankings, error) {
+	url := fmt.Sprintf("district/%d%s/rankings", b.year, b.abbreviation)
+	var d []DistrictRankings
+	err := b.client.URLStruct(url, &d)
+	return d, err
 }
