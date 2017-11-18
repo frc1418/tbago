@@ -7,9 +7,7 @@ import (
 )
 
 func main() {
-	token := "jVuUB9i97FgP8vVaCTCWFw5bjBmKyjG80nAs4nQhbS2G2xBVmIKvvE0lXnCeuciV"
-
-    tba, err := tbago.New(token)
+    tba, err := tbago.New("jVuUB9i97FgP8vVaCTCWFw5bjBmKyjG80nAs4nQhbS2G2xBVmIKvvE0lXnCeuciV")
 	if err != nil {
 		log.Fatal(err)
 	}
