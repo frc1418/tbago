@@ -1,4 +1,4 @@
-package tba
+package tbago
 
 // API Status
 func (tba Client) Status() *statusBuilder {

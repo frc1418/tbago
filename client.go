@@ -1,4 +1,4 @@
-package tba
+package tbago
 
 import "errors"
 
