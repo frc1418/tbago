@@ -26,7 +26,7 @@ func (tba Client) get(path string) ([]byte, error) {
 		return nil, err
 	}
 	if resp.StatusCode != 200 {
-		return nil, errors.New("Response code not 200")
+		return nil, errors.New("response code not 200")
 	}
 	defer resp.Body.Close()
 	body, err := ioutil.ReadAll(resp.Body)

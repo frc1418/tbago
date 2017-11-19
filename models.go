@@ -4,7 +4,12 @@ type statusBuilder struct {
 	client *Client
 }
 type Status struct {
-	Android struct {
+	CurrentSeason    int      `json:"current_season"`
+	MaxSeason        int      `json:"max_season"`
+	IsDatafeedDown   bool     `json:"is_datafeed_down"`
+	ContBuildEnabled bool     `json:"contbuild_enabled"`
+	DownEvents       []string `json:"down_events"`
+	Android          struct {
 		LatestAppVersion int `json:"latest_app_version"`
 		MinAppVersion    int `json:"min_app_version"`
 	} `json:"android"`
@@ -12,12 +17,6 @@ type Status struct {
 		LatestAppVersion int `json:"latest_app_version"`
 		MinAppVersion    int `json:"min_app_version"`
 	} `json:"ios"`
-	//Backup              map[string]interface{}  `json:"backup"`
-	ContBuildEnabled bool     `json:"contbuild_enabled"`
-	CurrentSeason    int      `json:"current_season"`
-	MaxSeason        int      `json:"max_season"`
-	DownEvents       []string `json:"down_events"`
-	IsDatafeedDown   bool     `json:"is_datafeed_down"`
 }
 
 type teamsBuilder struct {
@@ -34,24 +33,24 @@ type teamBuilder struct {
 	client *Client
 }
 type Team struct {
-	Address          string         `json:"address"`
+	Key              string         `json:"key"`
+	TeamNumber       int            `json:"team_number"`
+	Nickname         string         `json:"nickname"`
+	Name             string         `json:"name"`
 	City             string         `json:"city"`
 	StateProv        string         `json:"state_prov"`
 	Country          string         `json:"country"`
+	Address          string         `json:"address"`
 	PostalCode       string         `json:"postal_code"`
 	GMapsPlaceID     string         `json:"gmaps_place_id"`
 	GMapsURL         string         `json:"gmaps_url"`
-	HomeChampionship map[int]string `json:"home_championship"`
-	Key              string         `json:"key"`
-	Latitute         string         `json:"lat"`
-	Longitude        string         `json:"lng"`
-	Location         string         `json:"location_name"`
-	Motto            string         `json:"motto"`
-	Name             string         `json:"name"`
-	Nickname         string         `json:"nickname"`
-	RookieYear       int            `json:"rookie_year"`
-	Number           int            `json:"team_number"`
+	Latitude         float64        `json:"lat"`
+	Longitude        float64        `json:"lng"`
+	LocationName     string         `json:"location_name"`
 	Website          string         `json:"website"`
+	Motto            string         `json:"motto"`
+	RookieYear       int            `json:"rookie_year"`
+	HomeChampionship map[int]string `json:"home_championship"`
 }
 
 type eventsBuilder struct {
@@ -69,42 +68,39 @@ type eventBuilder struct {
 }
 
 type Event struct {
-	Address  string `json:"address"`
-	City     string `json:"city"`
-	Country  string `json:"country"`
-	District struct {
-		Abbreviation string `json:"abbreviation"`
-		DisplayName  string `json:"display_name"`
-		Key          string `json:"key"`
-		Year         int    `json:"year"`
-	} `json:"district"`
-	DivisionKeys      []string `json:"division_keys"`
-	EventCode         string   `json:"event_code"`
-	EventType         int      `json:"event_type"`
-	EventTypeString   string   `json:"event_type_string"`
-	FIRSTEventCode    string   `json:"first_event_code"`
-	FIRSTEventID      string   `json:"first_event_id"`
-	GMapsPlaceID      string   `json:"gmaps_place_id"`
-	GMapsURL          string   `json:"gmaps_url"`
-	Key               string   `json:"key"`
-	Latitute          string   `json:"lat"`
-	Longitude         string   `json:"lng"`
-	LocationName      string   `json:"location_name"`
-	Name              string   `json:"name"`
-	ParentEventKey    string   `json:"parent_event_key"`
-	PlayoffType       int      `json:"playoff_type"`
-	PlayoffTypeString int      `json:"playoff_type_string"`
-	PostalCode        string   `json:"postal_code"`
-	ShortName         string   `json:"short_name"`
-	StartDate         string   `json:"start_date"`
-	StateProv         string   `json:"state_prov"`
-	Timezone          string   `json:"timezone"`
-	Webcasts          []struct {
+	Key             string   `json:"key"`
+	Name            string   `json:"name"`
+	EventCode       string   `json:"event_code"`
+	EventType       int      `json:"event_type"`
+	District        District `json:"district"`
+	City            string   `json:"city"`
+	StateProv       string   `json:"state_prov"`
+	PostalCode      string   `json:"postal_code"`
+	Country         string   `json:"country"`
+	Address         string   `json:"address"`
+	StartDate       string   `json:"start_date"`
+	EndDate         string   `json:"end_date"`
+	Year            int      `json:"year"`
+	ShortName       string   `json:"short_name"`
+	EventTypeString string   `json:"event_type_string"`
+	Week            int      `json:"week"`
+	GMapsPlaceID    string   `json:"gmaps_place_id"`
+	GMapsURL        string   `json:"gmaps_url"`
+	Latitude        float64  `json:"lat"`
+	Longitude       float64  `json:"lng"`
+	LocationName    string   `json:"location_name"`
+	Timezone        string   `json:"timezone"`
+	DivisionKeys    []string `json:"division_keys"`
+	Website         string   `json:"website"`
+	FIRSTEventID    string   `json:"first_event_id"`
+	FIRSTEventCode  string   `json:"first_event_code"`
+	Webcasts        []struct {
 		Channel string `json:"channel"`
 		Type    string `json:"type"`
 	} `json:"webcasts"`
-	Website string `json:"website"`
-	Week    int    `json:"week"`
+	ParentEventKey    string `json:"parent_event_key"`
+	PlayoffType       int    `json:"playoff_type"`
+	PlayoffTypeString int    `json:"playoff_type_string"`
 }
 
 type awardsBuilder struct {
@@ -114,12 +110,12 @@ type awardsBuilder struct {
 	client *Client
 }
 type Award struct {
+	Name          string `json:"name"`
 	AwardType     int    `json:"award_type"`
 	EventKey      string `json:"event_key"`
-	Name          string `json:"name"`
 	RecipientList []struct {
-		TeamNumber int         `json:"team_number"`
-		Awardee    interface{} `json:"awardee"`
+		TeamKey string `json:"team_key"`
+		Awardee string `json:"awardee"`
 	} `json:"recipient_list"`
 	Year int `json:"year"`
 }
@@ -136,8 +132,11 @@ type matchBuilder struct {
 	client *Client
 }
 type Match struct {
-	ActualTime int64 `json:"actual_time"`
-	Alliances  struct {
+	Key         string `json:"key"`
+	CompLevel   string `json:"comp_level"`
+	SetNumber   int    `json:"set_number"`
+	MatchNumber int    `json:"match_number"`
+	Alliances   struct {
 		Blue struct {
 			DQTeams        []string `json:"dq_team_keys"`
 			Score          int      `json:"score"`
@@ -151,23 +150,20 @@ type Match struct {
 			Teams          []string `json:"teams"`
 		} `json:"red"`
 	} `json:"alliances"`
-	CompLevel      string `json:"comp_level"`
-	EventKey       string `json:"event_key"`
-	Key            string `json:"key"`
-	MatchNumber    int    `json:"match_number"`
-	PostResultTime int64  `json:"post_result_time"`
-	PredictedTime  int64  `json:"predicted_time"`
-	ScoreBreakdown struct {
+	WinningAlliance string `json:"winning_alliance"`
+	EventKey        string `json:"event_key"`
+	Time            int64  `json:"time"`
+	ActualTime      int64  `json:"actual_time"`
+	PredictedTime   int64  `json:"predicted_time"`
+	PostResultTime  int64  `json:"post_result_time"`
+	ScoreBreakdown  struct {
 		Red  interface{} `json:"red"`
 		Blue interface{} `json:"blue"`
 	} `json:"score_breakdown"`
-	SetNumber int   `json:"set_number"`
-	Time      int64 `json:"time"`
-	Videos    []struct {
+	Videos []struct {
 		Type string `json:"type"`
 		Key  string `json:"key"`
 	} `json:"videos"`
-	WinningAlliance string `json:"winning_alliance"`
 }
 
 type yearsBuilder struct {
@@ -182,26 +178,11 @@ type mediaBuilder struct {
 	client *Client
 }
 type Media struct {
-	Type       string `json:"type"`
-	ForeignKey string `json:"foreign_key"`
-	Preferred  bool   `json:"preferrred"`
-	Details    struct {
-		// Instagram
-		AuthorID        int    `json:"author_id"`
-		AuthorName      string `json:"author_name"`
-		AuthorURL       string `json:"author_url"`
-		Height          int    `json:"height"`
-		HTML            string `json:"html"`
-		MediaID         string `json:"media_id"`
-		ProviderName    string `json:"provider_name"`
-		ProviderURL     string `json:"provider_url"`
-		ThumbnailHeight string `json:"thumbnail_height"`
-		ThumbnailURL    string `json:"thumbnail_url"`
-		Title           string `json:"thumbnail_width"`
-		Type            string `json:"type"`
-		Version         string `json:"version"`
-		Width           int    `json:"width"`
-	} `json:"details"`
+	Type       string                 `json:"type"`
+	Key        int                    `json:"key"`
+	ForeignKey string                 `json:"foreign_key"`
+	Preferred  bool                   `json:"preferrred"`
+	Details    map[string]interface{} `json:"details"`
 }
 
 type robotsBuilder struct {
@@ -209,10 +190,10 @@ type robotsBuilder struct {
 	client *Client
 }
 type Robot struct {
-	Key     string `json:"key"`
-	Name    string `json:"robot_name"`
-	TeamKey string `json:"team_key"`
 	Year    int    `json:"year"`
+	Name    string `json:"robot_name"`
+	Key     string `json:"key"`
+	TeamKey string `json:"team_key"`
 }
 
 type districtsBuilder struct {
@@ -278,8 +259,8 @@ type DistrictPoints struct {
 	Points map[string]struct {
 		AlliancePoints int `json:"alliance_points"`
 		AwardPoints    int `json:"award_points"`
-		ElimPoints     int `json:"elim_points"`
 		QualPoints     int `json:"qual_points"`
+		ElimPoints     int `json:"elim_points"`
 		Total          int `json:"total"`
 	} `json:"points"`
 	Tiebreakers map[string]struct {
@@ -293,7 +274,8 @@ type insightsBuilder struct {
 	client *Client
 }
 type Insights struct {
-	// TODO
+	Qual    map[string]interface{} `json:"qual"`
+	Playoff map[string]interface{} `json:"playoff"`
 }
 
 type oprsBuilder struct {
@@ -301,9 +283,9 @@ type oprsBuilder struct {
 	client *Client
 }
 type OPRs struct {
-	CCWMs map[string]float64 `json:"ccwms"`
-	DPRs  map[string]float64 `json:"dprs"`
 	OPRs  map[string]float64 `json:"oprs"`
+	DPRs  map[string]float64 `json:"dprs"`
+	CCWMs map[string]float64 `json:"ccwms"`
 }
 
 type predictionsBuilder struct {
@@ -364,6 +346,20 @@ type rankingsBuilder struct {
 	client *Client
 }
 type Rankings struct {
+	Rankings []struct {
+		DQ            int `json:"dq"`
+		MatchesPlayed int `json:"matches_played"`
+		QualAverage   int `json:"qual_average"`
+		Rank          int `json:"rank"`
+		Record        struct {
+			Losses int `json:"losses"`
+			Ties   int `json:"ties"`
+			Wins   int `json:"wins"`
+		} `json:"record"`
+		ExtraStats []int     `json:"extra_stats"`
+		SortOrders []float64 `json:"sort_orders"`
+		TeamKey    string    `json:"team_key"`
+	} `json:"rankings"`
 	ExtraStatsInfo []struct {
 		Name      string `json:"name"`
 		Precision string `json:"precision"`
@@ -372,20 +368,6 @@ type Rankings struct {
 		Name      string `json:"name"`
 		Precision string `json:"precision"`
 	} `json:"sort_order_info"`
-	Rankings []struct {
-		DQ            int   `json:"dq"`
-		ExtraStats    []int `json:"extra_stats"`
-		MatchesPlayes int   `json:"matches_played"`
-		QualAverage   int   `json:"qual_average"`
-		Rank          int   `json:"rank"`
-		Record        struct {
-			Losses int `json:"losses"`
-			Ties   int `json:"ties"`
-			Wins   int `json:"wins"`
-		} `json:"record"`
-		SortOrders []float64 `json:"sort_orders"`
-		TeamKey    string    `json:"team_key"`
-	} `json:"rankings"`
 }
 
 type districtRankingsBuilder struct {
@@ -394,6 +376,10 @@ type districtRankingsBuilder struct {
 	client       *Client
 }
 type DistrictRankings struct {
+	TeamKey     string `json:"team_key"`
+	Rank        int    `json:"rank"`
+	RookieBonus int    `json:"rookie_bonus"`
+	PointTotal  int    `json:"point_total"`
 	EventPoints []struct {
 		AlliancePoints int    `json:"alliance_points"`
 		AwardPoints    int    `json:"award_points"`
@@ -403,8 +389,4 @@ type DistrictRankings struct {
 		QualPoints     int    `json:"qual_points"`
 		Total          int    `json:"total"`
 	} `json:"event_points"`
-	PointTotal  int    `json:"point_total"`
-	Rank        int    `json:"rank"`
-	RookieBonus int    `json:"rookie_bonus"`
-	TeamKey     string `json:"team_key"`
 }

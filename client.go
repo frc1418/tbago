@@ -8,7 +8,7 @@ type Client struct {
 
 func New(key string) (client Client, err error) {
 	if key == "" {
-		err := errors.New("Invalid arguments.")
+		err := errors.New("invalid arguments")
 		return client, err
 	}
 	client = Client{
