@@ -30,6 +30,7 @@ type teamsBuilder struct {
 
 type teamBuilder struct {
 	number int
+	event  string
 	simple bool
 	client *Client
 }
@@ -64,6 +65,7 @@ type eventsBuilder struct {
 
 type eventBuilder struct {
 	id     string
+	team   int
 	simple bool
 	client *Client
 }

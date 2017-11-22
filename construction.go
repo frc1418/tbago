@@ -24,6 +24,10 @@ func (b *teamBuilder) Simple() *teamBuilder {
 	b.simple = true
 	return b
 }
+func (b *teamBuilder) Event(event string) *teamBuilder {
+	b.event = event
+	return b
+}
 func (b *teamBuilder) Events() *eventsBuilder {
 	return &eventsBuilder{
 		team:   b.number,
@@ -33,12 +37,14 @@ func (b *teamBuilder) Events() *eventsBuilder {
 func (b *teamBuilder) Awards() *awardsBuilder {
 	return &awardsBuilder{
 		team:   b.number,
+		event:  b.event,
 		client: b.client,
 	}
 }
 func (b *teamBuilder) Matches() *matchesBuilder {
 	return &matchesBuilder{
 		team:   b.number,
+		event:  b.event,
 		client: b.client,
 	}
 }
@@ -90,6 +96,10 @@ func (b *eventBuilder) Simple() *eventBuilder {
 	b.simple = true
 	return b
 }
+func (b *eventBuilder) Team(team int) *eventBuilder {
+	b.team = team
+	return b
+}
 func (b *eventBuilder) Alliances() *alliancesBuilder {
 	return &alliancesBuilder{
 		event:  b.id,
@@ -122,6 +132,7 @@ func (b *eventBuilder) Awards() *awardsBuilder {
 }
 func (b *eventBuilder) Matches() *matchesBuilder {
 	return &matchesBuilder{
+		team:   b.team,
 		event:  b.id,
 		client: b.client,
 	}
@@ -132,6 +143,10 @@ func (b *awardsBuilder) Year(year int) *awardsBuilder {
 	b.year = year
 	return b
 }
+func (b *awardsBuilder) Team(team int) *awardsBuilder {
+	b.team = team
+	return b
+}
 
 // Match + modifiers
 func (b *matchesBuilder) Year(year int) *matchesBuilder {
@@ -139,7 +154,11 @@ func (b *matchesBuilder) Year(year int) *matchesBuilder {
 	return b
 }
 func (b *matchesBuilder) Simple() *matchesBuilder {
-	b.simple = true;
+	b.simple = true
+	return b
+}
+func (b *matchesBuilder) Team(team int) *matchesBuilder {
+	b.team = team
 	return b
 }
 func (tba Client) Match(key string) *matchBuilder {

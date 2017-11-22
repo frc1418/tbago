@@ -12,6 +12,18 @@ func main() {
 		log.Fatal(err)
 	}
 
+	awards, err := tba.Team(1418).Event("2017vahay").Awards().Get()
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(awards)
+
+	matches, err := tba.Event("2017vahay").Matches().Team(1418).Simple().Get()
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(matches)
+
 	short, err := tba.Team(1418).Simple().Get()
 	if err != nil {
 		log.Fatal(err)
@@ -23,4 +35,5 @@ func main() {
 		log.Fatal(err)
 	}
 	fmt.Println(vids)
+	*/
 }
