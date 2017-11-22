@@ -1,9 +1,9 @@
 package tbago
 
-type statusBuilder struct {
+type tbaStatusBuilder struct {
 	client *Client
 }
-type Status struct {
+type TBAStatus struct {
 	CurrentSeason    int      `json:"current_season"`
 	MaxSeason        int      `json:"max_season"`
 	IsDatafeedDown   bool     `json:"is_datafeed_down"`
@@ -24,7 +24,7 @@ type teamsBuilder struct {
 	event    string
 	district string
 	year     int
-	simple bool
+	simple   bool
 	client   *Client
 }
 
@@ -123,6 +123,52 @@ type Award struct {
 	Year int `json:"year"`
 }
 
+type statusBuilder struct {
+	team   int
+	event  string
+	client *Client
+}
+type Status struct {
+	Alliance struct {
+		Backup struct {
+			Out string `json:"out"`
+			In  string `json:"in"`
+		} `json:"backup"`
+		Name   string `json:"name"`
+		Number int    `json:"number"`
+		Pick   int    `json:"pick"`
+	} `json:"alliance"`
+	AllianceStatusStr string `json:"alliance_status_str"`
+	LastMatchKey      string `json:"last_match_key"`
+	NextMatchKey      string `json:"next_match_key"`
+	OverallStatusStr  string `json:"overall_status_str"`
+	Playoff           struct {
+		Level              string    `json:"level"`
+		CurrentLevelRecord WLTRecord `json:"current_level_record"`
+		Record             WLTRecord `json:"record"`
+		PlayoffAverage     int       `json:"playoff_average"`
+		Status             string    `json:"status"`
+	} `json:"playoff"`
+	PlayoffStatusStr string `json:"playoff_status_str"`
+	Qual             struct {
+		NumTeams int `json:"num_teams"`
+		Ranking  struct {
+			DQ            int       `json:"dq"`
+			MatchesPlayed int       `json:"matches_played"`
+			QualAverage   int       `json:"qual_average"`
+			Rank          int       `json:"rank"`
+			Record        WLTRecord `json:"record"`
+			SortOrders    []float64 `json:"sort_orders"`
+			TeamKey       string    `json:"team_key"`
+			SortOrderInfo []struct {
+				Name      string `json:"name"`
+				Precision string `json:"precision"`
+			} `json:"sort_order_info"`
+			Status string `json:"status"`
+		} `json:"ranking"`
+	} `json:"qual"`
+}
+
 type matchesBuilder struct {
 	team   int
 	event  string
@@ -179,7 +225,7 @@ type Year int
 type mediaBuilder struct {
 	team   int
 	year   int
-	tag	   string
+	tag    string
 	client *Client
 }
 type Media struct {
@@ -240,19 +286,11 @@ type Alliance struct {
 	Name     string      `json:"name"`
 	Picks    []string    `json:"picks"`
 	Status   struct {
-		CurrentLevelRecord struct {
-			Losses int `json:"losses"`
-			Ties   int `json:"ties"`
-			Wins   int `json:"wins"`
-		} `json:"current_level_record"`
-		Level          string `json:"level"`
-		PlayoffAverage int    `json:"playoff_average"`
-		Record         struct {
-			Losses int `json:"losses"`
-			Ties   int `json:"ties"`
-			Wins   int `json:"wins"`
-		} `json:"record"`
-		Status string `json:"status"`
+		CurrentLevelRecord WLTRecord `json:"current_level_record"`
+		Level              string    `json:"level"`
+		PlayoffAverage     int       `json:"playoff_average"`
+		Record             WLTRecord `json:"record"`
+		Status             string    `json:"status"`
 	} `json:"status"`
 }
 
@@ -352,18 +390,14 @@ type rankingsBuilder struct {
 }
 type Rankings struct {
 	Rankings []struct {
-		DQ            int `json:"dq"`
-		MatchesPlayed int `json:"matches_played"`
-		QualAverage   int `json:"qual_average"`
-		Rank          int `json:"rank"`
-		Record        struct {
-			Losses int `json:"losses"`
-			Ties   int `json:"ties"`
-			Wins   int `json:"wins"`
-		} `json:"record"`
-		ExtraStats []int     `json:"extra_stats"`
-		SortOrders []float64 `json:"sort_orders"`
-		TeamKey    string    `json:"team_key"`
+		DQ            int       `json:"dq"`
+		MatchesPlayed int       `json:"matches_played"`
+		QualAverage   int       `json:"qual_average"`
+		Rank          int       `json:"rank"`
+		Record        WLTRecord `json:"record"`
+		ExtraStats    []int     `json:"extra_stats"`
+		SortOrders    []float64 `json:"sort_orders"`
+		TeamKey       string    `json:"team_key"`
 	} `json:"rankings"`
 	ExtraStatsInfo []struct {
 		Name      string `json:"name"`
@@ -394,4 +428,10 @@ type DistrictRankings struct {
 		QualPoints     int    `json:"qual_points"`
 		Total          int    `json:"total"`
 	} `json:"event_points"`
+}
+
+type WLTRecord struct {
+	Losses int `json:"losses"`
+	Ties   int `json:"ties"`
+	Wins   int `json:"wins"`
 }

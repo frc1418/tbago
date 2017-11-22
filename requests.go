@@ -2,9 +2,9 @@ package tbago
 
 import "fmt"
 
-func (b statusBuilder) Get() (Status, error) {
+func (b tbaStatusBuilder) Get() (TBAStatus, error) {
 	url := "status"
-	var d Status
+	var d TBAStatus
 	err := b.client.URLStruct(url, &d)
 	return d, err
 }
@@ -72,9 +72,14 @@ func (b awardsBuilder) Get() ([]Award, error) {
 	if b.year != 0 {
 		url += fmt.Sprintf("/%d", b.year)
 	}
-	/////////////////////////////////////////////////////////////////???REMOVE!!!!!!!!!!!
-	fmt.Println(url)
 	var d []Award
+	err := b.client.URLStruct(url, &d)
+	return d, err
+}
+
+func (b statusBuilder) Get() (Status, error) {
+	url := fmt.Sprintf("team/frc%d/event/%s/status", b.team, b.event)
+	var d Status
 	err := b.client.URLStruct(url, &d)
 	return d, err
 }

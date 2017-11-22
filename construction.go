@@ -1,8 +1,8 @@
 package tbago
 
-// API Status
-func (tba Client) Status() *statusBuilder {
-	return &statusBuilder{
+// TBA Status
+func (tba Client) Status() *tbaStatusBuilder {
+	return &tbaStatusBuilder{
 		client: &tba,
 	}
 }
@@ -78,6 +78,13 @@ func (b *teamBuilder) Profiles() *profilesBuilder {
 		client: b.client,
 	}
 }
+func (b *teamBuilder) Status() *statusBuilder {
+	return &statusBuilder{
+		team:   b.number,
+		event:  b.event,
+		client: b.client,
+	}
+}
 
 // Event + modifiers
 func (tba Client) Events(year int) *eventsBuilder {
@@ -132,6 +139,13 @@ func (b *eventBuilder) Awards() *awardsBuilder {
 }
 func (b *eventBuilder) Matches() *matchesBuilder {
 	return &matchesBuilder{
+		team:   b.team,
+		event:  b.id,
+		client: b.client,
+	}
+}
+func (b *eventBuilder) Status() *statusBuilder {
+	return &statusBuilder{
 		team:   b.team,
 		event:  b.id,
 		client: b.client,
