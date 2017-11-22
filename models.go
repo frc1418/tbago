@@ -177,6 +177,7 @@ type Year int
 type mediaBuilder struct {
 	team   int
 	year   int
+	tag	   string
 	client *Client
 }
 type Media struct {

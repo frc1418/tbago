@@ -14,7 +14,13 @@ func main() {
 
 	short, err := tba.Team(1418).Simple().Get()
 	if err != nil {
-		log.Panic(err)
+		log.Fatal(err)
 	}
 	fmt.Println(short.Nickname)
+
+	vids, err := tba.Team(254).Media().Tag("chairmans_video").Year(2004).Get()
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(vids)
 }

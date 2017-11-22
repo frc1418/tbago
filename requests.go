@@ -112,6 +112,9 @@ func (b yearsBuilder) Get() ([]Year, error) {
 
 func (b mediaBuilder) Get() ([]Media, error) {
 	url := fmt.Sprintf("team/frc%d/media", b.team)
+	if b.tag != "" {
+		url = fmt.Sprintf("%s/tag/%s", url, b.tag)
+	}
 	if b.year != 0 {
 		url = fmt.Sprintf("%s/%d", url, b.year)
 	}

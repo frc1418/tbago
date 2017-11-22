@@ -158,6 +158,10 @@ func (b *mediaBuilder) Year(year int) *mediaBuilder {
 	b.year = year
 	return b
 }
+func (b *mediaBuilder) Tag(tag string) *mediaBuilder {
+	b.tag = tag
+	return b
+}
 
 // District + modifiers
 func (tba Client) Districts(year int) *districtsBuilder {
