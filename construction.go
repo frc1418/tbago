@@ -138,6 +138,10 @@ func (b *matchesBuilder) Year(year int) *matchesBuilder {
 	b.year = year
 	return b
 }
+func (b *matchesBuilder) Simple() *matchesBuilder {
+	b.simple = true;
+	return b
+}
 func (tba Client) Match(key string) *matchBuilder {
 	return &matchBuilder{
 		key:    key,

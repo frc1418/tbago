@@ -18,17 +18,18 @@ func (b teamsBuilder) Get() ([]Team, error) {
 	} else {
 		url = fmt.Sprintf("teams/%d", b.page)
 	}
+	if b.simple {
+		url += "/simple"
+	}
 	var d []Team
 	err := b.client.URLStruct(url, &d)
 	return d, err
 }
 
 func (b teamBuilder) Get() (Team, error) {
-	var url string
+	url := fmt.Sprintf("team/frc%d", b.number)
 	if b.simple {
-		url = fmt.Sprintf("team/frc%d/simple", b.number)
-	} else {
-		url = fmt.Sprintf("team/frc%d", b.number)
+		url += "/simple"
 	}
 	var d Team
 	err := b.client.URLStruct(url, &d)
@@ -37,13 +38,15 @@ func (b teamBuilder) Get() (Team, error) {
 
 func (b eventsBuilder) Get() ([]Event, error) {
 	var url string
-	fmt.Println(b.team)
 	if b.team != 0 {
 		url = fmt.Sprintf("team/frc%d/events", b.team)
 	} else if b.district != "" {
 		url = fmt.Sprintf("district/%d%s/events", b.year, b.district)
 	} else {
 		url = fmt.Sprintf("events/%d", b.year)
+	}
+	if b.simple {
+		url += "/simple"
 	}
 	var d []Event
 	err := b.client.URLStruct(url, &d)
@@ -81,6 +84,9 @@ func (b matchesBuilder) Get() ([]Match, error) {
 		}
 	} else if b.event != "" {
 		url = fmt.Sprintf("event/%s/matches", b.event)
+	}
+	if b.simple {
+		url += "/simple"
 	}
 	var d []Match
 	err := b.client.URLStruct(url, &d)

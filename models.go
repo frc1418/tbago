@@ -24,6 +24,7 @@ type teamsBuilder struct {
 	event    string
 	district string
 	year     int
+	simple bool
 	client   *Client
 }
 
@@ -124,6 +125,7 @@ type matchesBuilder struct {
 	team   int
 	event  string
 	year   int
+	simple bool
 	client *Client
 }
 type matchBuilder struct {
