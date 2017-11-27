@@ -1,13 +1,14 @@
 package main
 
 import (
-	tbago "../../tbago"
 	"fmt"
 	"log"
+
+	tbago "../../tbago"
 )
 
 func main() {
-    tba, err := tbago.New("jVuUB9i97FgP8vVaCTCWFw5bjBmKyjG80nAs4nQhbS2G2xBVmIKvvE0lXnCeuciV")
+	tba, err := tbago.New("jVuUB9i97FgP8vVaCTCWFw5bjBmKyjG80nAs4nQhbS2G2xBVmIKvvE0lXnCeuciV")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -35,5 +36,4 @@ func main() {
 		log.Fatal(err)
 	}
 	fmt.Println(vids)
-	*/
 }
