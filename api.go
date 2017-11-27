@@ -3,6 +3,7 @@ package tbago
 import (
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io/ioutil"
 	"net/http"
 )
@@ -26,7 +27,7 @@ func (tba Client) get(path string) ([]byte, error) {
 		return nil, err
 	}
 	if resp.StatusCode != 200 {
-		return nil, errors.New("response code not 200")
+		return nil, errors.New(fmt.Sprintf("non-200 response code %d", resp.StatusCode))
 	}
 	defer resp.Body.Close()
 	body, err := ioutil.ReadAll(resp.Body)
