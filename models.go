@@ -191,13 +191,13 @@ type Match struct {
 			DQTeams        []string `json:"dq_team_keys"`
 			Score          int      `json:"score"`
 			SurrogateTeams []string `json:"surrogate_team_keys"`
-			Teams          []string `json:"teams"`
+			TeamKeys       []string `json:"team_keys"`
 		} `json:"blue"`
 		Red struct {
 			DQTeams        []string `json:"dq_team_keys"`
 			Score          int      `json:"score"`
 			SurrogateTeams []string `json:"surrogate_team_keys"`
-			Teams          []string `json:"teams"`
+			TeamKeys       []string `json:"team_keys"`
 		} `json:"red"`
 	} `json:"alliances"`
 	WinningAlliance string `json:"winning_alliance"`
