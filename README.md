@@ -1,5 +1,7 @@
-# tba for Go
-> A Go library for interfacing with The Blue Alliance's API. (Supports APIv3.)
+# tbago
+_1418 TBA Libraries_ // [Python](https://github.com/frc1418/tbapy) // [**Go**](https://github.com/frc1418/tbago) // [Ruby](https://github.com/frc1418/tbarb)
+
+> Go library for interfacing with [The Blue Alliance](https://thebluealliance.com) [API](https://thebluealliance.com/apidocs) (v3).
 
 ## Installation
 ```sh
