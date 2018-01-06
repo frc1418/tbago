@@ -207,13 +207,118 @@ type Match struct {
 	PredictedTime   int64  `json:"predicted_time"`
 	PostResultTime  int64  `json:"post_result_time"`
 	ScoreBreakdown  struct {
-		Red  interface{} `json:"red"`
-		Blue interface{} `json:"blue"`
+		Red  ScoreBreakdownAlliance `json:"red"`
+		Blue ScoreBreakdownAlliance `json:"blue"`
 	} `json:"score_breakdown"`
 	Videos []struct {
 		Type string `json:"type"`
 		Key  string `json:"key"`
 	} `json:"videos"`
+}
+
+type ScoreBreakdownAlliance struct {
+	// 2015
+	AutoPoints             int  `json:"auto_points"`
+	TeleopPoints           int  `json:"teleop_points"`
+	ContainerPoints        int  `json:"container_points"`
+	TotePoints             int  `json:"tote_points"`
+	LitterPoints           int  `json:"litter_points"`
+	FoulPoints             int  `json:"foul_points"`
+	AdjustPoints           int  `json:"adjust_points"`
+	TotalPoints            int  `json:"total_points"`
+	FoulCount              int  `json:"foul_count"`
+	ToteCountFar           int  `json:"tote_count_far"`
+	ToteCountNear          int  `json:"tote_count_near"`
+	ToteSet                bool `json:"tote_set"`
+	ToteStack              bool `json:"tote_stack"`
+	ContainerCountLevel1   int  `json:"container_count_level1"`
+	ContainerCountLevel2   int  `json:"container_count_level2"`
+	ContainerCountLevel3   int  `json:"container_count_level3"`
+	ContainerCountLevel4   int  `json:"container_count_level4"`
+	ContainerCountLevel5   int  `json:"container_count_level5"`
+	ContainerCountLevel6   int  `json:"container_count_level6"`
+	ContainerSet           bool `json:"container_set"`
+	LitterCountContainer   int  `json:"litter_count_container"`
+	LitterCountLandfill    int  `json:"litter_count_landfill"`
+	LitterCountUnprocessed int  `json:"litter_count_unprocessed"`
+	RobotSet               bool `json:"robot_set"`
+
+	// 2016
+	AutoPoints             int    `json:"autoPoints"`
+	TeleopPoints           int    `json:"teleopPoints"`
+	BreechPoints           int    `json:"breechPoints"`
+	FoulPoints             int    `json:"foulPoints"`
+	CapturePoints          int    `json:"capturePoints"`
+	AdjustPoints           int    `json:"adjustPoints"`
+	TotalPoints            int    `json:"totalPoints"`
+	Robot1Auto             string `json:"robot1Auto"`
+	Robot2Auto             string `json:"robot2Auto"`
+	Robot3Auto             string `json:"robot3Auto"`
+	AutoReachPoints        int    `json:"autoReachPoints"`
+	AutoCrossingPoints     int    `json:"autoCrossingPoints"`
+	AutoBouldersLow        int    `json:"autoBouldersLow"`
+	AutoBouldersHigh       int    `json:"autoBouldersHigh"`
+	AutoBoulderPoints      int    `json:"autoBoulderPoints"`
+	TeleopCrossingPoints   int    `json:"teleopCrossingPoints"`
+	TeleopBouldersLow      int    `json:"teleopBouldersLow"`
+	TeleopBouldersHigh     int    `json:"teleopBouldersHigh"`
+	TeleopBoulderPoints    int    `json:"teleopBoulderPoints"`
+	TeleopDefensesBreached bool   `json:"teleopDefensesBreached"`
+	TeleopChallengePoints  int    `json:"teleopChallengePoints"`
+	TeleopScalePoints      int    `json:"teleopScalePoints"`
+	TeleopTowerCaptured    int    `json:"teleopTowerCaptured"`
+	TowerFaceA             string `json:"towerFaceA"`
+	TowerFaceB             string `json:"towerFaceB"`
+	TowerFaceC             string `json:"towerFaceC"`
+	TowerEndStrength       int    `json:"towerEndStrength"`
+	TechFoulCount          int    `json:"techFoulCount"`
+	FoulCount              int    `json:"foulCount"`
+	Position2              string `json:"position2"`
+	Position3              string `json:"position3"`
+	Position4              string `json:"position4"`
+	Position5              string `json:"position5"`
+	Position1Crossings     int    `json:"position1crossings"`
+	Position2Crossings     int    `json:"position2crossings"`
+	Position3Crossings     int    `json:"position3crossings"`
+	Position4Crossings     int    `json:"position4crossings"`
+	Position5Crossings     int    `json:"position5crossings"`
+
+	// 2017
+	AutoPoints                int    `json:autoPoints`
+	TeleopPoints              int    `json:teleopPoints`
+	BreachPoints              int    `json:breachPoints`
+	FoulPoints                int    `json:foulPoints`
+	CapturePoints             int    `json:capturePoints`
+	AdjustPoints              int    `json:adjustPoints`
+	TotalPoints               int    `json:totalPoints`
+	Robot1Auto                string `json:robot1Auto`
+	Robot2Auto                string `json:robot2Auto`
+	Robot3Auto                string `json:robot3Auto`
+	Rotor1Auto                bool   `json:rotor1Auto`
+	Rotor2Auto                bool   `json:rotor2Auto`
+	AutoFuelLow               int    `json:autoFuelLow`
+	AutoFuelHigh              int    `json:autoFuelHigh`
+	AutoMobilityPoints        int    `json:autoMobilityPoints`
+	AutoRotorPoints           int    `json:autoRotorPoints`
+	AutoFuelPoints            int    `json:autoFuelPoints`
+	TeleopFuelPoints          int    `json:teleopFuelPoints`
+	TeleopFuelLow             int    `json:teleopFuelLow`
+	TeleopFuelHigh            int    `json:teleopFuelHigh`
+	TeleopRotorPoints         int    `json:teleopRotorPoints`
+	KPaRankingPointAchieved   bool   `json:kPaRankingPointAchieved`
+	TeleopTakeoffPoints       int    `json:teleopTakeoffPoints`
+	KPaBonusPoints            int    `json:kPaBonusPoints`
+	RotorBonusPoints          int    `json:rotorBonusPoints`
+	Rotor1Engaged             bool   `json:rotor1Engaged`
+	Rotor2Engaged             bool   `json:rotor2Engaged`
+	Rotor3Engaged             bool   `json:rotor3Engaged`
+	Rotor4Engaged             bool   `json:rotor4Engaged`
+	RotorRankingPointAchieved bool   `json:rotorRankingPointAchieved`
+	TechFoulCount             int    `json:techFoulCount`
+	FoulCount                 int    `json:foulCount`
+	TouchpadNear              string `json:touchpadNear`
+	TouchpadMiddle            string `json:touchpadMiddle`
+	TouchpadFar               string `json:touchpadFar`
 }
 
 type yearsBuilder struct {
@@ -317,6 +422,7 @@ type insightsBuilder struct {
 	client *Client
 }
 type Insights struct {
+	// TODO
 	Qual    map[string]interface{} `json:"qual"`
 	Playoff map[string]interface{} `json:"playoff"`
 }
